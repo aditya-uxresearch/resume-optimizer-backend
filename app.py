@@ -1,5 +1,13 @@
 from flask import Flask, request, jsonify
 import spacy
+import subprocess
+
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    print("Downloading 'en_core_web_sm' model...")
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
 
 app = Flask(__name__)
 nlp = spacy.load("en_core_web_sm")
